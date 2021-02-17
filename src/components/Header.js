@@ -1,5 +1,20 @@
 import React from "react";
-import { Flex, Box, Heading, Avatar } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Heading,
+  Avatar,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  Button,
+  Portal,
+} from "@chakra-ui/react";
 
 export default function Header() {
   return (
@@ -11,7 +26,22 @@ export default function Header() {
       </Box>
 
       <Box>
-        <Avatar bg="teal.500" />
+        <Popover>
+          <PopoverTrigger>
+            <Avatar bg="teal.500" />
+          </PopoverTrigger>
+          <Portal>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverHeader>Jon Doe</PopoverHeader>
+              <PopoverCloseButton />
+              <PopoverBody>
+                <Button colorScheme="blue">Log out</Button>
+              </PopoverBody>
+              <PopoverFooter>This is the footer</PopoverFooter>
+            </PopoverContent>
+          </Portal>
+        </Popover>
       </Box>
     </Flex>
   );
