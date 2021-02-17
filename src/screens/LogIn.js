@@ -10,24 +10,22 @@ import {
 } from "@chakra-ui/react";
 
 export default function Login() {
-  console.log("home screen");
-
   return (
     <ChakraProvider resetCSS>
-      <Flex justifyContent="center">
-        <Box p={10}>
-          <Text mb={5} fontWeight="bold" textAlign="left" fontSize="xl">
+      <Flex justifyContent="center" display="grid">
+        <Box mt={100} p={10} width="400px" boxShadow="2xl" borderRadius={10}>
+          <Text mb={5} fontWeight="bold" textAlign="left" fontSize="2xl">
             Sign in
           </Text>
           <Input
             mb={5}
             width="100%"
             overflow="visible"
-            placeholder="Email or Phon"
+            placeholder="Email or Phone"
             size="md"
           />
           <Input mb={5} width="100%" placeholder="Password" size="md" />
-          <Text>Forgot Password ?</Text>
+          <Text color="linkedin.500">Forgot Password ?</Text>
           <Stack
             spacing={2}
             justifyContent="flex-start"
@@ -41,8 +39,13 @@ export default function Login() {
               justifyContent="center"
               alignItems="center"
               p={5}
+              m={5}
+              height="50px"
+              width="100%"
+              colorScheme="telegram"
+              borderRadius={25}
             >
-              Submit
+              Log in
             </Button>
           </Stack>
         </Box>

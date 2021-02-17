@@ -5,7 +5,7 @@ import Routes from "./router/Routes";
 export default function App() {
   return (
     <ChakraProvider>
-      <Routes></Routes>
+      <Routes />
     </ChakraProvider>
   );
 }
