@@ -8,12 +8,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-// import Videoplayer from "./Video";
 
 const Dashboard = () => (
   <ChakraProvider resetCSS>
     <Flex
-      //   justifyContent="space-around"
       alignItems="space-between"
       flexDirection="column"
       width="100%"
@@ -33,7 +31,7 @@ const Dashboard = () => (
           <Textarea />
         </Stack>
         <Stack spacing={2}>
-          <Text>{/* <Videoplayer /> */}</Text>
+          <Text>Video Player</Text>
         </Stack>
       </Flex>
     </Flex>

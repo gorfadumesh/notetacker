@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import firebase from "../firebase";
+import "firebase/auth";
 import {
   Flex,
   Box,
@@ -15,8 +18,31 @@ import {
   Button,
   Portal,
 } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
 
 export default function Header() {
+  const history = useHistory();
+  const dispatch = useDispatch("");
+  const user = useSelector((state) => state.user);
+  if (!user.isLoggedIn) {
+    history.push("login");
+  }
+  // console.log(user.user.photoURL, "photo");
+
+  const logOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("Sign-out successful");
+
+        dispatch({ type: "USER_LOGOUT", payload: "" });
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   return (
     <Flex bg="grey" w="100%" p={3} justifyContent="space-between">
       <Box p="2">
@@ -28,15 +54,17 @@ export default function Header() {
       <Box>
         <Popover>
           <PopoverTrigger>
-            <Avatar bg="teal.500" />
+            <Avatar name={user.user.displayName} src={user.user.photoURL} />
           </PopoverTrigger>
           <Portal>
             <PopoverContent>
               <PopoverArrow />
-              <PopoverHeader>Jon Doe</PopoverHeader>
+              <PopoverHeader>{user.user.displayName}</PopoverHeader>
               <PopoverCloseButton />
               <PopoverBody>
-                <Button colorScheme="blue">Log out</Button>
+                <Button colorScheme="blue" onClick={logOut}>
+                  Log out
+                </Button>
               </PopoverBody>
               <PopoverFooter>This is the footer</PopoverFooter>
             </PopoverContent>
