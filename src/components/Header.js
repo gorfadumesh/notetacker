@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "../firebase";
 import "firebase/auth";
+import { deleteToken } from "./../utils";
+import { useAuthState } from "react-firebase-hooks/auth";
 import {
   Flex,
   Box,
@@ -23,11 +25,7 @@ import { useHistory } from "react-router-dom";
 export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch("");
-  const user = useSelector((state) => state.user);
-  if (!user.isLoggedIn) {
-    history.push("login");
-  }
-  // console.log(user.user.photoURL, "photo");
+  const [user] = useAuthState(firebase.auth());
 
   const logOut = () => {
     firebase
@@ -35,12 +33,12 @@ export default function Header() {
       .signOut()
       .then(() => {
         console.log("Sign-out successful");
+        deleteToken();
+        history.push("login");
 
         dispatch({ type: "USER_LOGOUT", payload: "" });
       })
-      .catch((error) => {
-        // An error happened.
-      });
+      .catch((error) => {});
   };
 
   return (
@@ -54,12 +52,16 @@ export default function Header() {
       <Box>
         <Popover>
           <PopoverTrigger>
-            <Avatar name={user.user.displayName} src={user.user.photoURL} />
+            <Avatar
+              style={{ cursor: "pointer" }}
+              name={user.displayName}
+              src={user.photoURL}
+            />
           </PopoverTrigger>
           <Portal>
             <PopoverContent>
               <PopoverArrow />
-              <PopoverHeader>{user.user.displayName}</PopoverHeader>
+              <PopoverHeader>{user.displayName}</PopoverHeader>
               <PopoverCloseButton />
               <PopoverBody>
                 <Button colorScheme="blue" onClick={logOut}>

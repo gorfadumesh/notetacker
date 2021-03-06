@@ -9,6 +9,7 @@ import {
   Route,
 } from "react-router-dom";
 import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 export default function Routes() {
   return (
     <Router>
@@ -18,7 +19,7 @@ export default function Routes() {
         </Route>
 
         <PublicRoute path="/login" Component={LogIn} />
-        <PublicRoute path="/home" Component={HomeScreen} />
+        <PrivateRoute path="/home" Component={HomeScreen} />
       </Switch>
     </Router>
   );

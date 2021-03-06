@@ -15,22 +15,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-
+import "firebase/auth";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase";
-import "firebase/auth";
 import { setToken } from "./../utils";
 
 export default function Login() {
   const history = useHistory();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  if (isLoggedIn) {
-    history.push("home");
-  }
-
   const dispatch = useDispatch("");
   const [email, setEmail] = useState("");
-  // const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [hasAccount, setHasAccount] = useState(true);
@@ -53,6 +46,7 @@ export default function Login() {
         var user = result.user;
         dispatch({ type: "USER_LOGIN_SUCCESS", payload: user });
         setToken(user);
+        history.push("/home");
         // ...
       })
       .catch((error) => {
@@ -78,6 +72,7 @@ export default function Login() {
         var user = userCredential.user;
         dispatch({ type: "USER_LOGIN_SUCCESS", payload: user });
         setToken(user);
+        history.push("/home");
         // ...
         clearInputs();
       })
@@ -106,7 +101,7 @@ export default function Login() {
         setHasAccount(true);
 
         // dispatch({ type: "USER_LOGIN_SUCCESS", payload: user });
-        setToken(user);
+        // setToken(user);
         // ...
         clearInputs();
         toast({
@@ -128,9 +123,6 @@ export default function Login() {
         }
       });
   };
-
-  var user = firebase.auth().currentUser;
-  console.log(user, "login user");
 
   const forgotPassword = () => {
     var auth = firebase.auth();
@@ -162,30 +154,25 @@ export default function Login() {
       });
   };
 
-  // const authListener = () => {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       setUser(user);
-  //     } else {
-  //       setUser("");
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   authListener();
-  // }, []);
-
   return (
     <>
       <ChakraProvider resetCSS>
-        <Flex justifyContent="center" display="grid">
+        <Flex
+          justifyContent="center"
+          display="grid"
+          mt={[2, 4, 6, 8]}
+          p={[2, 4, 6, 8]}
+        >
+          <Box p={[3, 4, 6, 8]} fontSize={["sm", "md", "lg", "xl"]}>
+            Class Room
+          </Box>
+
           <Box
-            mt={100}
+            mt={[2, 4, 6, 8]}
             p={10}
             h="auto"
             width="400px"
-            boxShadow="2xl"
+            boxShadow={["0", "0", "lg", "xl"]}
             borderRadius={10}
           >
             {hasAccount ? (
